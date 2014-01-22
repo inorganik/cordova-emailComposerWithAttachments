@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        id="net.inorganik.emailComposerWithAttachmentsAndFilenames" 
+        version="1.2.0">
+    <engines>
+        <engine name="cordova" version=">=2.9.0" />
+    </engines>
+    <name>EmailComposerWithAttachmentsAndFilenames</name>
+    <description>PhoneGap plugin that allows you to add attachments and specify filenames of attachments to an email compose window</description>
+    <author>Guido Sabatini</author>
+    <author>Jamie Perkins</author>
+    <license>MIT</license>
+    <keywords>cordova,email,attachments,filenames,email with attachments and filenames</keywords>
+    <asset src="www/EmailComposer.js" target="js/EmailComposer.js" />
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="net.inorganik.emailComposerWithAttachmentsAndFilenames">
+                <param name="ios-package" value="emailComposerWithAttachmentsAndFilenames"/>
+            </feature>
+        </config-file>
+        <framework src="MessageUI.framework" />
+        <header-file src="src/ios/EmailComposer.h" />
+        <source-file src="src/ios/EmailComposer.m" />
+    </platform>
+    <!--
+    <platform name="android">
+        
+        <source-file src="src/android/EmailComposer.java" />
+    </platform>
+    -->
+</plugin>
