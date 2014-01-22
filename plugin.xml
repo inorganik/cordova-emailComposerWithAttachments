@@ -14,7 +14,7 @@
     <asset src="www/EmailComposer.js" target="js/EmailComposer.js" />
     <platform name="ios">
         <config-file target="config.xml" parent="/*">
-            <feature name="net.inorganik.emailComposerWithAttachmentsAndFilenames">
+            <feature name="EmailComposer">
                 <param name="ios-package" value="EmailComposer"/>
             </feature>
         </config-file>
