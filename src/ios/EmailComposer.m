@@ -32,11 +32,11 @@
 }
 
 -(void) showEmailComposerWithParameters:(NSDictionary*)parameters {
-
+    
     MFMailComposeViewController *mailComposer = [[MFMailComposeViewController alloc] init];
     mailComposer.mailComposeDelegate = self;
     
-	// set subject
+    // set subject
     @try {
         NSString* subject = [parameters objectForKey:@"subject"];
         if (subject) {
@@ -57,7 +57,7 @@
     @catch (NSException *exception) {
         NSLog(@"EmailComposer - Cannot set body; error: %@", exception);
     }
-	// Set recipients
+    // Set recipients
     @try {
         NSArray* toRecipientsArray = [parameters objectForKey:@"toRecipients"];
         if(toRecipientsArray) {
@@ -87,25 +87,15 @@
     @catch (NSException *exception) {
         NSLog(@"EmailComposer - Cannot set BCC recipients; error: %@", exception);
     }
-    // attachment file name
-    @try {
-        NSArray* attachmentFilenames = [parameters objectForKey:@"filenames"];
-        if(attachmentFilenames) {
-            [mailComposer setAttachmentsFilenames:attachmentFilenames];
-        }
-        //self.filename = [parameters objectForKey:@"filename"];
-    }
-    @catch (NSException *exception) {
-        NSLog(@"EmailComposer - Cannot set filenames; error: %@", exception);
-    }
     // Attachments
-	@try {
+    @try {
         NSArray *attachmentPaths = [parameters objectForKey:@"attachments"];
         if (attachmentPaths) {
             
             // find the application's file path
-            NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
             NSString *appDocsPath = [paths objectAtIndex:0];
+            NSArray *attachmentFilenames = [parameters objectForKey:@"filenames"];
             //NSString *persistentPath = [NSString stringWithFormat:@"/%@", [appDocsPath lastPathComponent]];
             
             //for (NSString* path in attachmentPaths) {
@@ -120,7 +110,7 @@
                     [mailComposer addAttachmentData:data mimeType:[self getMimeTypeFromFileExtension:[path pathExtension]] fileName:filename];
                 }
                 @catch (NSException *exception) {
-                    NSLog(@"Cannot attach file at path %@; error: %@", path, exception);
+                    NSLog(@"Cannot attach file; error: %@",exception);
                 }
             }
         }
@@ -134,34 +124,33 @@
     } else {
         [self returnWithCode:RETURN_CODE_EMAIL_NOTSENT];
     }
-    [mailComposer release];
 }
 
 
 // Dismisses the email composition interface when users tap Cancel or Send.
 // Proceeds to update the message field with the result of the operation.
-- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {   
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
     // Notifies users about errors associated with the interface
-	int webviewResult = 0;
+    int webviewResult = 0;
     
     switch (result) {
         case MFMailComposeResultCancelled:
-			webviewResult = RETURN_CODE_EMAIL_CANCELLED;
-            break;
+        webviewResult = RETURN_CODE_EMAIL_CANCELLED;
+        break;
         case MFMailComposeResultSaved:
-			webviewResult = RETURN_CODE_EMAIL_SAVED;
-            break;
+        webviewResult = RETURN_CODE_EMAIL_SAVED;
+        break;
         case MFMailComposeResultSent:
-			webviewResult =RETURN_CODE_EMAIL_SENT;
-            break;
+        webviewResult =RETURN_CODE_EMAIL_SENT;
+        break;
         case MFMailComposeResultFailed:
-            webviewResult = RETURN_CODE_EMAIL_FAILED;
-            break;
+        webviewResult = RETURN_CODE_EMAIL_FAILED;
+        break;
         default:
-			webviewResult = RETURN_CODE_EMAIL_NOTSENT;
-            break;
+        webviewResult = RETURN_CODE_EMAIL_NOTSENT;
+        break;
     }
-	
+    
     [controller dismissModalViewControllerAnimated:YES];
     [self returnWithCode:webviewResult];
 }
@@ -174,14 +163,14 @@
 // Retrieve the mime type from the file extension
 -(NSString *) getMimeTypeFromFileExtension:(NSString *)extension {
     if (!extension)
-        return nil;
+    return nil;
     CFStringRef pathExtension, type;
     // Get the UTI from the file's extension
-    pathExtension = (CFStringRef)extension;
+    pathExtension = (__bridge CFStringRef)extension;
     type = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, pathExtension, NULL);
     
     // Converting UTI to a mime type
-   return (NSString *)UTTypeCopyPreferredTagWithClass(type, kUTTagClassMIMEType);
+    return (__bridge NSString *)UTTypeCopyPreferredTagWithClass(type, kUTTagClassMIMEType);
 }
 
 @end
