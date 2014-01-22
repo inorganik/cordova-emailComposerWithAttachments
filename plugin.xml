@@ -15,7 +15,7 @@
     <platform name="ios">
         <config-file target="config.xml" parent="/*">
             <feature name="net.inorganik.emailComposerWithAttachmentsAndFilenames">
-                <param name="ios-package" value="emailComposerWithAttachmentsAndFilenames"/>
+                <param name="ios-package" value="EmailComposer"/>
             </feature>
         </config-file>
         <plugins-plist key="EmailComposer" string="EmailComposer" />
