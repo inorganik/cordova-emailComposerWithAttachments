@@ -18,6 +18,7 @@
                 <param name="ios-package" value="emailComposerWithAttachmentsAndFilenames"/>
             </feature>
         </config-file>
+        <plugins-plist key="EmailComposer" string="EmailComposer" />
         <framework src="MessageUI.framework" />
         <header-file src="src/ios/EmailComposer.h" />
         <source-file src="src/ios/EmailComposer.m" />
