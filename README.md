@@ -10,11 +10,11 @@ It has been modified so that you can add filenames to attachments, and support f
 
 1. Add the plugin:
 
-	cordova plugin add https://github.com/inorganik/cordova-emailComposerWithAttachments.git
+		cordova plugin add https://github.com/inorganik/cordova-emailComposerWithAttachments.git
 
 2. Build the appropriate platform
 
-	cordova build ios
+		cordova build ios
 
 3. For iOS: include `MessagesUI.framework` in your project by clicking on the target, then Build Phases, and expand 'Link Binary With Libraries'. Click the "+" and add `MessagesUI.framework`.
 
@@ -22,15 +22,15 @@ It has been modified so that you can add filenames to attachments, and support f
 
 5. In your JavaScript file, call 
 
-	window.plugins.emailComposer.showEmailComposer(subject,body,toRecipients,ccRecipients,bccRecipients,bIsHTML,attachments,filenames);
+		window.plugins.emailComposer.showEmailComposer(subject,body,toRecipients,ccRecipients,bccRecipients,bIsHTML,attachments,filenames);
 
 Params (all optional):
 
-`subject` = String
-`body` = String
-`toRecipients` = Array
-`ccRecipients` = Array
-`bccRecipients` = Array
-`bIsHtml` = Boolean
-`attachments` = Array
-`filenames` = Array
+- `subject` = String
+- `body` = String
+- `toRecipients` = Array
+- `ccRecipients` = Array
+- `bccRecipients` = Array
+- `bIsHtml` = Boolean
+- `attachments` = Array
+- `filenames` = Array
