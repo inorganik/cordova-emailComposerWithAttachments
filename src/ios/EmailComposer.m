@@ -1,7 +1,7 @@
 //
 //  EmailComposer.m
 //
-//  Version 1.2
+//  Version 1.3
 //
 //  Created by Guido Sabatini in 2012.
 //
