@@ -37,7 +37,8 @@ Params (all optional):
 
 ### Example
 
-Assumes you have a reference to a file, `myFile`. Also that you have defined email params: `subject`, `body`, `toRecipients`, etc.
+- Requires the **file** plugin: `cordova plugin add org.apache.cordova.file`
+- Assumes you have a reference to a file, `myFile`. Also that you have defined email params: `subject`, `body`, `toRecipients`, etc.
 
 ```js
 function sendLog() {
