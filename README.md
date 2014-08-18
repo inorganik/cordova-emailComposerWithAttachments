@@ -34,3 +34,33 @@ Params (all optional):
 - `bIsHtml` = Boolean
 - `attachments` = Array
 - `filenames` = Array
+
+### Example
+
+Assumes you have a reference to a file, `myFile`. Also that you have defined email params: `subject`, `body`, `toRecipients`, etc.
+
+```js
+function sendLog() {
+
+    // save the file locally, so it can be retrieved from emailComposer
+    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
+        // create the file if it doesn't exist
+        fileSystem.root.getFile('myFile.txt', {create: true, exclusive: false}, function(file) {
+            // create writer
+            file.createWriter(function(writer) {
+                // write
+                writer.write(myFile);
+                // when done writing, call up email composer
+                writer.onwriteend = function(evt) {
+                    // params: subject,body,toRecipients,ccRecipients,bccRecipients,bIsHTML,attachments,filenames
+                    window.plugins.emailComposer.showEmailComposer(subject,body,[],[],[],false,['myFile.txt'], ['myFile']);
+                }
+            }, fileSystemError);
+        }, fileSystemError);
+    }, fileSystemError);
+}
+
+function fileSystemError(error) {
+    console.log('Error getting file system: '+error.code);
+}
+```
